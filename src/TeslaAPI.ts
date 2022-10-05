@@ -50,7 +50,7 @@ export class TeslaAPI implements ITeslaApiRequestor {
    * @param params the parameters to pass to axios (see axios documentation)
    */
   public async getRequest<T>(path: string, params?: any) {
-    return axios.get<{ response: T }>(`${API_URL}${path}`, { params, headers: this.buildHeaders() })
+    return axios.get<{ response: T }>(`${API_URL}${path}`, { params, timeout: 10000, headers: this.buildHeaders() })
       .then((r) => r.data.response);
   }
 
@@ -63,7 +63,7 @@ export class TeslaAPI implements ITeslaApiRequestor {
    */
   public async postRequest<T>(path: string, body?: any, params?: any) {
     return axios.post<{ response: T }>(`${API_URL}${path}`,
-      body || {}, { params: params || {}, headers: this.buildHeaders() })
+      body || {}, { params: params || {}, timeout: 10000, headers: this.buildHeaders() })
       .then((r) => r.data.response);
   }
 

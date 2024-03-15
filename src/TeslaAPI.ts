@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { ANDROID_USER_AGENT, API_HOST, API_URL, CLIENT_ID, CLIENT_SECRET } from "./constants";
+import { ANDROID_USER_AGENT, API_URL } from "./constants";
 import { ITeslaApiRequestor } from "./ITeslaApiRequestor";
 import { PowerwallAPI, PowerwallProduct } from "./powerwalls";
 import { BaseVehicle, VehicleAPI, VehicleProduct } from "./vehicles";
@@ -27,7 +27,7 @@ export class TeslaAPI implements ITeslaApiRequestor {
       .then((data) => {
         const toRet = [];
         for (const dataEntry of data) {
-          // @ts-ignore
+          // @ts-expect-error property does not exist on all
           if (dataEntry.resource_type === "battery") {
             toRet.push(new PowerwallAPI(this, dataEntry as PowerwallProduct));
           } else {
@@ -49,7 +49,7 @@ export class TeslaAPI implements ITeslaApiRequestor {
    * @param path the endpoint path
    * @param params the parameters to pass to axios (see axios documentation)
    */
-  public async getRequest<T>(path: string, params?: any) {
+  public async getRequest<T>(path: string, params?: unknown) {
     return axios.get<{ response: T }>(`${API_URL}${path}`, { params, timeout: 10000, headers: this.buildHeaders() })
       .then((r) => r.data.response);
   }
@@ -61,7 +61,7 @@ export class TeslaAPI implements ITeslaApiRequestor {
    * @param body the request body
    * @param params
    */
-  public async postRequest<T>(path: string, body?: any, params?: any) {
+  public async postRequest<T>(path: string, body?: unknown, params?: unknown) {
     return axios.post<{ response: T }>(`${API_URL}${path}`,
       body || {}, { params: params || {}, timeout: 10000, headers: this.buildHeaders() })
       .then((r) => r.data.response);

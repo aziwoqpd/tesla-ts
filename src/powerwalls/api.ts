@@ -27,7 +27,7 @@ export class PowerwallAPI {
     return this.apiRequestor.getRequest(`/energy_sites/${this.data.energy_site_id}/live_status`);
   }
 
-  public async history(): Promise<any> {
+  public async history(): Promise<unknown> {
     return this.apiRequestor.getRequest(`/energy_sites/${this.data.energy_site_id}/history`);
   }
 }

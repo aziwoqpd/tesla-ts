@@ -2,12 +2,6 @@ import assert from "assert";
 import { ITeslaApiRequestor } from "../ITeslaApiRequestor";
 import { PowerwallProduct } from "./types";
 
-// tslint:disable-next-line:interface-name
-interface DefaultCommandResult {
-  result: boolean;
-  reason: string;
-}
-
 export class PowerwallCommands {
 
   constructor(private apiRequestor: ITeslaApiRequestor, private powerwall: PowerwallProduct) {

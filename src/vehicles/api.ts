@@ -20,7 +20,10 @@ export class VehicleAPI {
    * Fetch the Vehicle information from the API
    */
   public async vehicleData(): Promise<VehicleData> {
-    return this.apiRequestor.getRequest(`/vehicles/${this.data.id}/vehicle_data`);
+    return this.apiRequestor.getRequest(`/vehicles/${this.data.id}/vehicle_data`, {
+      endpoints:
+          'charge_state;climate_state;closures_state;drive_state;gui_settings;location_data;vehicle_config;vehicle_state;vehicle_data_combo'
+    });
   }
 
   /**
